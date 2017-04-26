@@ -1661,7 +1661,6 @@ class Container(Layer):
                 layer = node.inbound_layers[i]
                 node_index = node.node_indices[i]
                 tensor_index = node.tensor_indices[i]
-                next_node = layer.inbound_nodes[node_index]
                 build_map_of_graph(x, finished_nodes, nodes_in_progress,
                                    layer, node_index, tensor_index)
 

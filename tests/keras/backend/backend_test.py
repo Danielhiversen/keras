@@ -628,6 +628,14 @@ class TestBackend(object):
 
         assert zth.shape == ztf.shape
         assert_allclose(zth, ztf, atol=1e-05)
+    
+        xth1 = KTH.variable(0.7)
+        xth2 = KTH.variable([1, 0.2])
+        with pytest.raises(ValueError):
+            xth = KTH.switch(xth1 >= 0.5, xth2 * 0.1, xth2 * 0.2)
+
+        xth = KTH.switch(xth2 >= 0.5, xth1 * 0.1, xth1 * 0.2)
+        assert_allclose(xth, KTH.variable([0.1, 0.2*0.2]), atol=1e-05)
 
     def test_nn_operations(self):
         check_single_tensor_operation('relu', (4, 2), alpha=0.1, max_value=0.5)
